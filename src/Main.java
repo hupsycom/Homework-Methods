@@ -23,14 +23,14 @@ public class Main {
 
     public static void main(String[] args) {
         calculateLeapYear();
-        clientOS();
+        System.out.println(clientOS());
         calculateDeliveryDays();
     }
 
     public static int calculateLeapYear() {
         System.out.println("Задача №1");
         int currentYear = LocalDate.now().getYear();
-        if (currentYear % 400 == 0 || currentYear % 4 == 0 || currentYear % 100 == 0) {
+        if (currentYear % 400 == 0 || currentYear % 4 == 0 || currentYear % 100 != 0) {
             System.out.println(currentYear + " год является високосным.");
         } else {
             System.out.println(currentYear + " год не является високосным.");
@@ -40,38 +40,48 @@ public class Main {
     }
 
 
-    public static int clientOS() {
+    public static String clientOS() {
         System.out.println("Задача №2");
-        int clientOS = 1;
+        int clientOS = 0;
         int clientDeviceYear = 2024;
         int currentYear = LocalDate.now().getYear();
         if (clientOS == 1) {
             if (clientDeviceYear >= currentYear) {
-                System.out.println("Вы пользуетесь IOS. Установите полную версию для IOS по ссылке: ... ");
-            } else {
-                System.out.println("Вы пользуетесь IOS. Установите облегченную версию приложения для IOS по ссылке: ... ");
+                return "Установите версию приложения для iOS по ссылке : ... ";
+            }else {
+                return "Установите облегченную версию приложения для iOS по ссылке : ... ";
             }
-        }
-        if (clientOS == 0) {
+        } else if (clientOS == 0) {
             if (clientDeviceYear >= currentYear) {
-                System.out.println("Вы пользуетесь Android. Установите полную версию для IOS по ссылке: ... ");
-            } else {
-                System.out.println("Вы пользуетесь Android. Установите облегченную версию приложения для Android по ссылке: ... ");
+                return "Установите версию приложения для Android по ссылке : ... ";
+            }else {
+                return "Установите облегченную версию приложения для Android по ссылке : ... ";
             }
+        }else {
+            throw new
+                    IllegalArgumentException("Недопустимое значение clientOS: " + clientOS);
         }
-        return clientOS;
 
     }
 
     public static int calculateDeliveryDays() {
         System.out.println("Задача №3");
-        int deliveryDistance = 1280;
+        int deliveryDistance = 90;
         int deliveryDays = 1;
-        int additionalDays = deliveryDistance / 40;
-        deliveryDays += additionalDays;
-        System.out.println("Для доставки потребуется " + deliveryDays + " дней.");
+        if (deliveryDistance < 20) {
+            System.out.println("Для доставки потребуется " + deliveryDays + " день.");
+        } else if (deliveryDistance >= 20 && deliveryDistance <= 60) {
+            System.out.println("Для доставки потребуется " + (deliveryDays + 1) + " дня.");
+        } else if (deliveryDistance >= 60 && deliveryDistance < 100) {
+            System.out.println("Для доставки потребуется " + (deliveryDays + 2) + " дня.");
+        } else {
+            System.out.println("Доставки нет. ");
+        }
         return deliveryDays;
-
+                                                                   //int additionalDays = deliveryDistance / 40;
+                                                                   //deliveryDays += additionalDays;
+                                                                   //System.out.println("Для доставки потребуется " + deliveryDays + " дней.");
+                                                                   //return deliveryDays;
     }
 
 
